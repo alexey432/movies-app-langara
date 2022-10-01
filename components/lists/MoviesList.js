@@ -4,7 +4,7 @@ import { View, Text } from 'react-native'
 const MoviesList = () => {
     return (
         <View>
-            <Text></Text>
+            <Text>not yet</Text>
         </View>
     )
 }

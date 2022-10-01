@@ -6,7 +6,7 @@ import { getMovieSearch } from '../../services/api'
 import Loading from '../layout/Loading'
 import MoviesList from '../lists/MoviesList'
 
-const MoviesContainer = () => {
+const SearchContainer = () => {
     const [ isLoading, setIsLoading ] = useState(false)
     const [movie, setMovie] = useState(null)
     const [movies, setMovies] = useState([])
@@ -79,4 +79,4 @@ const MoviesContainer = () => {
     )
 }
 
-export default MoviesContainer
+export default SearchContainer

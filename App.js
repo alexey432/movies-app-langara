@@ -2,13 +2,13 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { NativeBaseProvider } from "native-base";
 import Header from './components/layout/Header';
-import MoviesContainer from './components/containers/MoviesContainer';
+import TabStack from './components/stacks/TabStack';
 
 export default function App() {
   return (
     <NativeBaseProvider>
       <Header />
-       <MoviesContainer />
+       <TabStack /> 
     </NativeBaseProvider>
   );
 }
