@@ -37,7 +37,8 @@ const SearchContainer = () => {
             console.log(movie);
             
             setIsLoading(true)
-            const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${movie}&api_key=c1fd8b01ce787640cca3d9df4292129c`)
+            // const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${movie}&api_key=c1fd8b01ce787640cca3d9df4292129c`)
+            const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=c1fd8b01ce787640cca3d9df4292129c&language=en-US&query=${movie}`)
             console.log(response.data.results.length);
             
             setMovies([...response.data.results])
