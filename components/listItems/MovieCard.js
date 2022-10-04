@@ -6,13 +6,13 @@ const MovieCard = ({ navigation, movie }) => {
 
     return (
         <Box pb={2} mb={1}>
-            <HStack space={2} alignItems='center' ml={2} mr={20}>
+            <HStack space={2} alignItems='center' ml={2} mr={20} style={{ maxWidth: 250 }}>
                 <Image alt={'image'} source={{uri: movie.poster_path !== undefined && movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : placeholderURL}} size='xl'/>
-                <VStack space={2} alignItems='flex-start'>
+                <VStack space={1} alignItems='flex-start'>
                     <Text fontSize='md' bold>{movie.original_title !== undefined ? movie.original_title : movie.original_name}</Text>
-                    <Text fontSize='sm'>Popularity: {movie.popularity}</Text>
-                    <Text fontSize='sm'>Release Date: {movie.release_date}</Text>
-                    <Button style={{ backgroundColor: '#06b6d4', width: '100%' }} onPress={() => navigation.navigate('Details', { movie })}>More Details</Button>
+                    <Text fontSize='sm'>Popularity: {movie.popularity ? movie.popularity : 'N/A'}</Text>
+                    <Text fontSize='sm'>Release Date: {movie.release_date ? movie.release_date : 'N/A'}</Text>
+                    <Button style={{ backgroundColor: '#06b6d4', width: 200, height: 40 }} onPress={() => navigation.navigate('Details', { movie })}>More Details</Button>
                 </VStack>
             </HStack>
         </Box>

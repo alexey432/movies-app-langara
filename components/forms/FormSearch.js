@@ -5,8 +5,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { placeholderURL, blueActive } from '../utils/constants'
 
 const FormSearch = (props) => {
-    const { onInputChange, fetchMovies } = props
+    const { onInputChange, fetchMovies, selectType, setSelectType } = props
     const [ formData, setFormData ] = useState({});
+   
 
     const onSubmit = () => {
         fetchMovies()
@@ -40,7 +41,7 @@ const FormSearch = (props) => {
             <FormControl isRequired>
                 <FormControl.Label>Choose Search Type</FormControl.Label>
                 <HStack width='100%' space={2}>
-                    <Select selectedValue={"multi"} 
+                    <Select selectedValue={selectType} 
                         minWidth="240" 
                         accessibilityLabel="Choose Service" 
                         placeholder="Choose Service" 
@@ -50,9 +51,10 @@ const FormSearch = (props) => {
                             endIcon: <CheckIcon size={5} color='#fff' />
                         }} 
                         mt={1} 
-                        onValueChange={itemValue => setService(itemValue)}>
+                        onValueChange={itemValue => setSelectType(itemValue)}>
                         <Select.Item label="movie" value="movie" />
                         <Select.Item label="multi" value="multi" />
+                        <Select.Item label="tv" value="tv" />
                         </Select>
                         
                         <Button

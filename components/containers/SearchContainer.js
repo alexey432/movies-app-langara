@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Center, Container, Text } from 'native-base'
 import FormSearch from '../forms/FormSearch'
-import { getMovieSearch } from '../../services/api'
+import { getMoviesSearch } from '../../services/api'
 import Loading from '../layout/Loading'
 import MoviesList from '../lists/MoviesList'
 
@@ -10,6 +10,7 @@ const SearchContainer = ({ navigation }) => {
     const [ isLoading, setIsLoading ] = useState(false)
     const [movie, setMovie] = useState(null)
     const [movies, setMovies] = useState([])
+    const [ selectType, setSelectType ] = useState("multi")
 
     // useEffect(() => {
     //     async function getData() {
@@ -37,23 +38,15 @@ const SearchContainer = ({ navigation }) => {
             console.log(movie);
             
             setIsLoading(true)
-            // const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${movie}&api_key=c1fd8b01ce787640cca3d9df4292129c`)
-            const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=c1fd8b01ce787640cca3d9df4292129c&language=en-US&query=${movie}`)
-            console.log(response.data.results.length);
+            const data = await getMoviesSearch(movie, selectType)
             
-            setMovies([...response.data.results])
+            setMovies([...data.results])
             setIsLoading(false)
             
         } catch (error) {
             throw error
             
         }
-
-        // getMovieSearch(movie).then(movies => {
-        //     // console.log('check: ', movies);
-        //     // setMovies(movies)
-        // })
-
         
     }
 
@@ -61,14 +54,14 @@ const SearchContainer = ({ navigation }) => {
         setMovie(movie)
     }
 
-    // console.log(JSON.stringify(movies[1], null, 2));
+    console.log(JSON.stringify(movies[0], null, 2));
     
     
 
     return (
         <>
         <Center px={4}>
-            <FormSearch fetchMovies={fetchMovies} onInputChange={handleInputChange}/> 
+            <FormSearch selectType={selectType} setSelectType={setSelectType} fetchMovies={fetchMovies} onInputChange={handleInputChange}/> 
         </Center>
         {  }
         {isLoading ? <Loading /> : <MoviesList navigation={navigation} movies={movies} />}
