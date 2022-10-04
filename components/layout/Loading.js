@@ -1,10 +1,15 @@
 import React from 'react'
-import { Center, Text } from 'native-base'
+import { Center, Text, HStack, Spinner, Heading } from 'native-base'
 
 const Loading = () => {
     return (
         <Center>
-            <Text>Loading...</Text>
+            <HStack space={2} justifyContent="center">
+                <Spinner color="black" accessibilityLabel="Loading" />
+                <Heading color="black" fontSize="md">
+                    Loading
+                </Heading>
+            </HStack>
         </Center>
     )
 }

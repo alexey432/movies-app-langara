@@ -1,11 +1,16 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, FlatList } from 'native-base'
+import MovieCard from '../listItems/MovieCard'
 
-const MoviesList = () => {
+const MoviesList = ({ navigation, movies }) => {
     return (
-        <View>
-            <Text>not yet</Text>
-        </View>
+       <FlatList 
+            data={movies}
+            renderItem={({ item }) => (
+                <MovieCard navigation={navigation} movie={item} />
+            )}
+       />
+
     )
 }
 

@@ -6,7 +6,7 @@ import { getMovieSearch } from '../../services/api'
 import Loading from '../layout/Loading'
 import MoviesList from '../lists/MoviesList'
 
-const SearchContainer = () => {
+const SearchContainer = ({ navigation }) => {
     const [ isLoading, setIsLoading ] = useState(false)
     const [movie, setMovie] = useState(null)
     const [movies, setMovies] = useState([])
@@ -61,22 +61,18 @@ const SearchContainer = () => {
         setMovie(movie)
     }
 
-    // console.log(movies);
+    console.log(JSON.stringify(movies[1], null, 2));
     
     
 
     return (
-        <Container>
-            <Center px={4}>
-                <FormSearch fetchMovies={fetchMovies} onInputChange={handleInputChange}/> 
-                
-                
-                {/* {isLoading ? <Loading /> : <MoviesList movies={movies} />} */}
-                {isLoading ? <Loading /> : movies.length > 0 ? movies.map((item, index) => {
-                    return <Text key={index}>{item.original_title}</Text>
-                }) : null}
-            </Center>
-        </Container>
+        <>
+        <Center px={4}>
+            <FormSearch fetchMovies={fetchMovies} onInputChange={handleInputChange}/> 
+        </Center>
+
+        {isLoading ? <Loading /> : <MoviesList navigation={navigation} movies={movies} />}
+        </>
     )
 }
 

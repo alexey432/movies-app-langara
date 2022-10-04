@@ -1,9 +1,11 @@
 import React from 'react'
 import MoviesContainer from '../containers/MoviesContainer'
 
-const MoviesScreen = () => {
+const MoviesScreen = ({ navigation }) => {
+    console.log(navigation);
+
     return (
-        <MoviesContainer />
+        <MoviesContainer navigation={navigation} />
     )
 }
 

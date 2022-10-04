@@ -1,39 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Center } from 'native-base'
 import { FormControl, VStack, HStack,Input, Button, Icon, Select, CheckIcon, WarningOutlineIcon } from 'native-base'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import FormMovies from '../forms/FormMovies';
+import Loading from '../layout/Loading'
+import { getMovies } from '../../services/api';
+import MoviesList from '../lists/MoviesList';
 
-const MoviesContainer = () => {
+
+const MoviesContainer = ({ navigation }) => {
     const [ selectChoice, setSelectChoice ] = useState("popular")
+    const [ isLoading, setIsLoading ] = useState(false)
+    const [movies, setMovies] = useState([])
     
+    useEffect(() => {
+        async function fetchMovies() {
+            try {
+                setIsLoading(true)
+
+
+                const data = await getMovies(selectChoice);
+
+                // console.log(JSON.stringify(data, null, 2));
+                
+                setMovies([...data.results])
+                setIsLoading(false)
+                
+            } catch (error) {
+                throw error
+                
+            }
+        }
+
+        fetchMovies();
+
+    }, [selectChoice]);
+   
 
     return (
-        <VStack space={2} width='100%' py={5}>
-            <FormControl isRequired>
-                <Center width='100%' space={2}>
-                <Select selectedValue={selectChoice} 
-                    minWidth="200" 
-                    accessibilityLabel="Choose Service" 
-                    placeholder="Choose Service" 
-                    _selectedItem={{
-                        bg: "teal.600",
-                        color: '#fff',
-                        endIcon: <CheckIcon size={5} color='#fff' />
-                    }} 
-                    mt={1} 
-                    onValueChange={itemValue => setSelectChoice(itemValue)}
-                    >
-                    <Select.Item label="now_playing" value="now_playing" />
-                    <Select.Item label="popular" value="popular" />
-                    <Select.Item label="top_rated" value="top_rated" />
-                    <Select.Item label="upcoming" value="upcoming" />
-                    </Select>
-                    
-                </Center>
-            </FormControl>
-
-            <Text>Movies here</Text>
-        </VStack>
+        <>
+            <FormMovies selectChoice={selectChoice} setSelectChoice={setSelectChoice} />
+            {isLoading ? <Loading /> : <MoviesList navigation={navigation} movies={movies} />}
+        </>
     )
 }
 
