@@ -61,7 +61,7 @@ const SearchContainer = ({ navigation }) => {
         setMovie(movie)
     }
 
-    console.log(JSON.stringify(movies[1], null, 2));
+    // console.log(JSON.stringify(movies[1], null, 2));
     
     
 
@@ -70,7 +70,7 @@ const SearchContainer = ({ navigation }) => {
         <Center px={4}>
             <FormSearch fetchMovies={fetchMovies} onInputChange={handleInputChange}/> 
         </Center>
-
+        {  }
         {isLoading ? <Loading /> : <MoviesList navigation={navigation} movies={movies} />}
         </>
     )
