@@ -3,7 +3,7 @@ import { View, Text, Center } from 'native-base'
 import { FormControl, VStack, Select, CheckIcon } from 'native-base'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const FormMovies = ({ selectChoice, setSelectChoice }) => {
+const FormTvShows = ({ selectChoice, setSelectChoice }) => {
 
 
   return (
@@ -22,10 +22,10 @@ const FormMovies = ({ selectChoice, setSelectChoice }) => {
                     mt={1} 
                     onValueChange={itemValue => setSelectChoice(itemValue)}
                     >
-                    <Select.Item label="now_playing" value="now_playing" />
+                    <Select.Item label="airing_today" value="airing_today" />
+                    <Select.Item label="on_the_air" value="on_the_air" />
                     <Select.Item label="popular" value="popular" />
                     <Select.Item label="top_rated" value="top_rated" />
-                    <Select.Item label="upcoming" value="upcoming" />
                     </Select>
                     
                 </Center>
@@ -34,4 +34,4 @@ const FormMovies = ({ selectChoice, setSelectChoice }) => {
   )
 }
 
-export default FormMovies
+export default FormTvShows

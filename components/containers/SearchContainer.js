@@ -35,9 +35,8 @@ const SearchContainer = ({ navigation }) => {
 
     const fetchMovies = async () => {
         try {
-            console.log(movie);
-            
             setIsLoading(true)
+
             const data = await getMoviesSearch(movie, selectType)
             
             setMovies([...data.results])
@@ -53,8 +52,6 @@ const SearchContainer = ({ navigation }) => {
     const handleInputChange = movie => {
         setMovie(movie)
     }
-
-    console.log(JSON.stringify(movies[0], null, 2));
     
     
 
@@ -64,7 +61,7 @@ const SearchContainer = ({ navigation }) => {
             <FormSearch selectType={selectType} setSelectType={setSelectType} fetchMovies={fetchMovies} onInputChange={handleInputChange}/> 
         </Center>
         {  }
-        {isLoading ? <Loading /> : <MoviesList navigation={navigation} movies={movies} />}
+        {isLoading ? <Loading /> : <MoviesList navigation={navigation} movies={movies} type={'multi'}/>}
         </>
     )
 }

@@ -1,11 +1,12 @@
 import React from 'react'
-import MoviesContainer from '../containers/MoviesContainer'
+import TvShowsContainer from '../containers/TvShowsContainer'
 import { Text } from 'react-native'
 
 const MoviesScreen = ({ navigation }) => {
 
     return (
-        <MoviesContainer navigation={navigation} />
+        <TvShowsContainer navigation={navigation} />
+
     )
 }
 

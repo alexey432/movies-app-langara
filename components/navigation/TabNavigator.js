@@ -3,7 +3,7 @@ import { NavigationContainer} from '@react-navigation/native'
 import { Text } from 'native-base'
 import SearchScreen from '../screens/SearchScreen'
 import MoviesScreen from '../screens/MoviesScreen'
-import MoviesList from '../lists/MoviesList'
+import TvShowsScreen from '../screens/TvShowsScreen'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -22,7 +22,7 @@ const TabNavigator = () => {
                 }}>
               <Tab.Screen name="Movies" component={MoviesScreen} />
               <Tab.Screen name="Search Results" component={SearchScreen} />
-              <Tab.Screen name="TV Shows" component={MoviesList} />
+              <Tab.Screen name="TV Shows" component={TvShowsScreen} />
             </Tab.Navigator>
           );
 }
