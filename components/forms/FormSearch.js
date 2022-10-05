@@ -5,12 +5,13 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { placeholderURL, blueActive } from '../utils/constants'
 
 const FormSearch = (props) => {
-    const { onInputChange, fetchMovies, selectType, setSelectType } = props
-    const [ formData, setFormData ] = useState({});
-   
+    const { onInputChange, fetchMovies, selectType, setSelectType, movie, setPage } = props
 
     const onSubmit = () => {
-        fetchMovies()
+        if(movie !== '') {
+            fetchMovies()
+            setPage(1)
+        }
     }
 
     return (
@@ -25,7 +26,6 @@ const FormSearch = (props) => {
                         width='95%'
                         px={3}
                         onChangeText={value => {
-                            setFormData({ ...formData, movie: value })
                             onInputChange(value)
                         }}
                         InputLeftElement={

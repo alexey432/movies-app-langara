@@ -5,63 +5,66 @@ import FormSearch from '../forms/FormSearch'
 import { getMoviesSearch } from '../../services/api'
 import Loading from '../layout/Loading'
 import MoviesList from '../lists/MoviesList'
+import Pager from '../utils/Pager'
 
 const SearchContainer = ({ navigation }) => {
     const [ isLoading, setIsLoading ] = useState(false)
-    const [movie, setMovie] = useState(null)
+    const [movie, setMovie] = useState('')
     const [movies, setMovies] = useState([])
     const [ selectType, setSelectType ] = useState("multi")
-
-    // useEffect(() => {
-    //     async function getData() {
-    //         try {
-    //             const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=resident&api_key=c1fd8b01ce787640cca3d9df4292129c`)
-    //             // console.log(JSON.stringify(response, null , 2));
-    //             console.log('CHECK: ', JSON.stringify(response.data.results, null, 2));
-    //             setMovies([...response.data.results])
-    //             response.data.results.map(item => {
-    //                 console.log(item.original_title);
-                    
-    //             })
-                
-    //         } catch (error) {
-    //             throw error
-                
-    //         }
-    //     }   
-
-    //     getData()
-    // }, [])
+    const [ searchInitiated, setSearchInitiated ] = useState(false)
+    const [ page, setPage ] = useState(1)
+    const [ totalPages, setTotalPages ] = useState(1)
 
     const fetchMovies = async () => {
         try {
             setIsLoading(true)
 
-            const data = await getMoviesSearch(movie, selectType)
+            setSearchInitiated(true)
+
+            const data = await getMoviesSearch(movie, selectType, page)
             
             setMovies([...data.results])
+
+            // in API docs the maximum page that can be requested is 1000 
+            setTotalPages(data.total_pages > 1000 ? 1000 : data.total_pages)
+            console.log(data.total_pages);
+            
             setIsLoading(false)
             
         } catch (error) {
-            throw error
-            
+            throw error   
         }
-        
     }
+
+    useEffect(() => {
+        if(movies.length > 0) {
+            fetchMovies()
+        }
+    }, [page])
 
     const handleInputChange = movie => {
         setMovie(movie)
     }
     
-    
 
     return (
         <>
         <Center px={4}>
-            <FormSearch selectType={selectType} setSelectType={setSelectType} fetchMovies={fetchMovies} onInputChange={handleInputChange}/> 
+            <FormSearch selectType={selectType} setSelectType={setSelectType} fetchMovies={fetchMovies} onInputChange={handleInputChange} movie={movie} setPage={setPage}/> 
         </Center>
-        {  }
-        {isLoading ? <Loading /> : <MoviesList navigation={navigation} movies={movies} type={'multi'}/>}
+        
+        { searchInitiated ? 
+            isLoading ? <Loading /> : movies.length > 0 ? <>
+                <Text ml={2}>Total pages: {totalPages}</Text>
+                <MoviesList navigation={navigation} movies={movies} type={'multi'}/>
+                <Pager page={page} setPage={setPage} totalPages={totalPages} />
+            </> : <Center mt={20}>
+                <Text fontSize={'xl'}>No results</Text>
+            </Center>
+        : <Center mt={20}>
+                <Text fontSize={'xl'}>Please initiate a search</Text>
+            </Center>}
         </>
     )
 }

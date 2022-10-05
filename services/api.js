@@ -13,9 +13,9 @@ export const getSingleShow = async (movieId, type) => {
     }
 }
 
-export const getMovies = async (searchQuery) => {
+export const getMovies = async (searchQuery, page) => {
     try {
-        const response = await axios.get(`${BASE_URL}/movie/${searchQuery}?${API_KEY}&language=en-US&page=1`)
+        const response = await axios.get(`${BASE_URL}/movie/${searchQuery}?${API_KEY}&page=${page}`)
         
         return response.data;
         
@@ -24,9 +24,9 @@ export const getMovies = async (searchQuery) => {
     }
 }
 
-export const getTvShows = async (searchQuery) => {
+export const getTvShows = async (searchQuery, page) => {
     try {
-        const response = await axios.get(`${BASE_URL}/tv/${searchQuery}?${API_KEY}&language=en-US&page=1`)
+        const response = await axios.get(`${BASE_URL}/tv/${searchQuery}?${API_KEY}&page=${page}`)
         
         return response.data;
         
@@ -36,10 +36,10 @@ export const getTvShows = async (searchQuery) => {
 }
 
 
-export const getMoviesSearch = async (searchQuery, typeOfQuery) => {
+export const getMoviesSearch = async (searchQuery, typeOfQuery, page) => {
 
     try {
-        const response = await axios.get(`${BASE_URL}/search/${typeOfQuery}?${API_KEY}&query=${searchQuery}`)
+        const response = await axios.get(`${BASE_URL}/search/${typeOfQuery}?${API_KEY}&query=${searchQuery}&page=${page}`)
         return response.data;
         
     } catch (error) {

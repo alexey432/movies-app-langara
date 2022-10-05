@@ -38,7 +38,7 @@ const DetailsScreen = ({ route, navigation }) => {
             {isLoading ? <Loading /> : (
             <VStack space={2} alignItems='center' justifyContent="center" mr={10}>
                 <Text mb={5} fontSize='lg' bold>{movie.original_title ? movie.original_title : movie.original_name}</Text>
-                <Image mb={3} alt={'image'} source={{uri: movie.poster_path !== undefined && movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : placeholderURL}} size='2xl'/>
+                <Image mb={3} alt={`image${movie.id}`} source={{uri: movie.poster_path !== undefined && movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : placeholderURL}} size='2xl'/>
                 <Text fontSize='sm'>{movie.overview}</Text>
                 <HStack mt={3} alignSelf={'flex-start'}>
                     <Text fontSize='sm'>Popularity: {movie.popularity ? movie.popularity : 'N/A'}</Text>
